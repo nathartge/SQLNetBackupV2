@@ -1,0 +1,1340 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/6/2018 2:06:42 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="UPVENDCSQLM99"
+  DTS:CreatorName="INTERNAL\a22652_admin"
+  DTS:DTSID="{A466AF85-10ED-4396-957F-7AA66918C673}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.5026.0"
+  DTS:LocaleID="3081"
+  DTS:ObjectName="SQLNetBackupTLog-v2"
+  DTS:PackageType="5"
+  DTS:VersionBuild="155"
+  DTS:VersionGUID="{192CA4BC-FB45-44AF-A6D3-8DD25A2FF738}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DestinationConnectionFlatFile]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{0758D585-8927-4278-8A0B-746CC03A5B60}"
+      DTS:ObjectName="DestinationConnectionFlatFile">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[User::LocalFilePath]+ @[User::LocalFileName]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="3081"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="c:\Temp\SQLNetBackup\">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="255"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Variables"
+              DTS:DTSID="{75AC5C4F-E02A-47D2-9070-CA0BA21941AD}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SourceConnectionOLEDB]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{35294AF6-0A52-4951-8627-64BAC1380B9B}"
+      DTS:ObjectName="SourceConnectionOLEDB">
+      <DTS:PropertyExpression
+        DTS:Name="InitialCatalog">@[$Project::CatalogeName]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[$Project::InstanceName]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=;Initial Catalog=DCSQLMON;Provider=SQLNCLI11.1;Integrated Security=SSPI;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{BE421BAF-9326-4A58-8130-7C92B392C65E}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="CreateLocalFile">
+      <DTS:VariableValue
+        DTS:DataType="8">New-Item c:\Temp\SQLNetBackup\</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{7F013136-8DAB-401A-B9F0-8E0818609A70}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="DCSQLMON">
+      <DTS:VariableValue
+        DTS:DataType="8">DCSQLMON</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{D90036C8-5744-46BD-98A1-DB66C5A074B5}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="LocalFileGetName">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{6722403C-F19B-48F4-86AC-21433B7F1EFE}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::LocalFileGetName]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="LocalFileName">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{A70CC7B5-8F89-4A3A-9E80-C8E12E7BB7D6}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="LocalFilePath">
+      <DTS:VariableValue
+        DTS:DataType="8">c:\Temp\SQLNetBackup\</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{58D4AF3A-FDF5-433C-9BCF-43AB20FAC936}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="NetBackupCMD">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\Program Files\VERITAS\NetBackup\bin\dbbackex.exe</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{73D32283-A4BF-4FB7-8BE0-9C48AFCA331B}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="NetbackupCMDSwitch">
+      <DTS:VariableValue
+        DTS:DataType="8"> -f c:\Temp\SQLNetBackup\</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{78FE3EDB-E519-4BCC-876C-CB5508C41869}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="PowerShellCMD">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{AC0E79B5-9AE9-4E31-9771-51318EDF83A5}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="RemoveLocalFile">
+      <DTS:VariableValue
+        DTS:DataType="8">Remove-Item c:\Temp\SQLNetBackup\</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E3357872-7120-4AAF-8BF6-BC9E8D7D7CF2}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SQLInstanceSource">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Backup DBs"
+      DTS:CreationName="Microsoft.ExecuteProcess"
+      DTS:Description="Execute Process Task"
+      DTS:DTSID="{20af9c58-59fb-4572-af24-b8542fcba308}"
+      DTS:ExecutableType="Microsoft.ExecuteProcess"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Backup DBs"
+      DTS:TaskContact="Execute Process Task;Microsoft Corporation; SQL Server 2017; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:PropertyExpression
+        DTS:Name="Arguments">@[User::NetbackupCMDSwitch] + @[User::LocalFileName] +   @[$Project::NBPolicy]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="Executable">@[User::NetBackupCMD]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <ExecuteProcessData
+          Executable="C:\Program Files\VERITAS\NetBackup\bin\dbbackex.exe"
+          Arguments=" -f c:\Temp\SQLNetBackup\ -p MCS_SQL_Databases -np" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Container 1"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{2C80A39A-07EC-42C8-B734-B99D2B64C1E4}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Container 1">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Container 1\Exec - SQL_NetBak_GetDataV2"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{6e0b309f-a0b6-4d62-bba5-214b14656e0c}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Exec - SQL_NetBak_GetDataV2"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{35294AF6-0A52-4951-8627-64BAC1380B9B}"
+              SQLTask:SqlStatementSource="Exec netbak.sp_SQL_NetBak_GetDataV2" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Container 1\Insert Into SQL_DatabasesV2"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{c8926654-1beb-4dc9-8fc5-a78bca6ae277}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Insert Into SQL_DatabasesV2"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{35294AF6-0A52-4951-8627-64BAC1380B9B}"
+              SQLTask:SqlStatementSource="INSERT INTO [netbak].[SQL_DatabasesV2](name,recovery_model,state,IsPreferedBackup)&#xA; SELECT d.name,&#xA;  d.recovery_model, &#xA;  d.state,&#xA;  sys.fn_hadr_backup_is_preferred_replica (d.name) AS IsPreferedBackup&#xA;  FROM Sys.databases d&#xA;  WHERE d.name &lt;&gt; 'tempdb'" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Container 1\SP - SQL_DBExcludes"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{b434acae-1c2f-4ec5-9a92-826dbafcbd1f}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SP - SQL_DBExcludes"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{35294AF6-0A52-4951-8627-64BAC1380B9B}"
+              SQLTask:SqlStatementSource="-- Remove database from SQL backup list&#xA;/*    ==Scripting Parameters==&#xA;&#xA;    Source Server Version : SQL Server 2016 (13.0.4474)&#xA;    Source Database Engine Edition : Microsoft SQL Server Standard Edition&#xA;    Source Database Engine Type : Standalone SQL Server&#xA;&#xA;    Target Server Version : SQL Server 2016&#xA;    Target Database Engine Edition : Microsoft SQL Server Standard Edition&#xA;    Target Database Engine Type : Standalone SQL Server&#xA;*/&#xA;&#xA;USE [DCSQLMON]&#xA;GO&#xA;&#xA;/****** Object:  StoredProcedure [netbak].[SQL_DBExcludes]    Script Date: 14/09/2018 9:28:14 PM ******/&#xA;SET ANSI_NULLS ON&#xA;GO&#xA;&#xA;SET QUOTED_IDENTIFIER ON&#xA;GO&#xA;&#xA;-- =============================================&#xA;-- Author:  &lt;Author,,Name&gt;&#xA;-- Create date: &lt;Create Date,,&gt;&#xA;-- Description: &lt;Description,,&gt;&#xA;-- =============================================&#xA;IF EXISTS (SELECT * FROM sys.objects WHERE name = 'sp_SQL_DBExcludesV2' AND type ='P')&#xA;DROP Procedure [netbak].[sp_SQL_DBExcludesV2]&#xA;GO&#xA;CREATE PROCEDURE [netbak].[sp_SQL_DBExcludesV2] &#xA; -- Add the parameters for the stored procedure here&#xA; @ExcludeDB nvarchar(4000) NULL&#xA;&#xA;AS&#xA;&#xA;BEGIN&#xA; -- SET NOCOUNT ON added to prevent extra result sets from&#xA; -- interfering with SELECT statements.&#xA; SET NOCOUNT ON;&#xA;IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'SQL_DatabaseExcludesV2')&#xA;CREATE TABLE [netbak].[SQL_DatabaseExcludesV2](&#xA; [name] [nvarchar](255) NULL&#xA;) ON [PRIMARY]&#xA;&#xA; Truncate TABLE [netbak].[SQL_DatabaseExcludesV2]&#xA;&#xA; DECLARE @SQL nvarchar(MAX)&#xA;  SET @ExcludeDB = REPLACE(@ExcludeDB,',',''',''')&#xA;&#xA;  SET @SQL = 'INSERT INTO [netbak].[SQL_DatabaseExcludesV2] (name) SELECT name FROM master.sys.databases&#xA;    WHERE name IN&#xA;    (''' + @ExcludeDB + ''')'&#xA;  EXEC (@SQL)&#xA;&#xA;-- Remove database from SQL backup list&#xA;  DELETE FROM [netbak].[SQL_DatabasesV2] WHERE name IN (SELECT name FROM [netbak].[SQL_DatabaseExcludesV2])&#xA;END&#xA;GO&#xA;&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Container 1\SP - SQL_NetBak_GetDataV2"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{AB2F1AFB-EDB0-4004-BA64-95660521DC33}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SP - SQL_NetBak_GetDataV2"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{35294AF6-0A52-4951-8627-64BAC1380B9B}"
+              SQLTask:SqlStatementSource="/*    ==Scripting Parameters==&#xA;&#xA;    Source Server Version : SQL Server 2016 (13.0.4474)&#xA;    Source Database Engine Edition : Microsoft SQL Server Standard Edition&#xA;    Source Database Engine Type : Standalone SQL Server&#xA;&#xA;    Target Server Version : SQL Server 2017&#xA;    Target Database Engine Edition : Microsoft SQL Server Standard Edition&#xA;    Target Database Engine Type : Standalone SQL Server&#xA;*/&#xA;&#xA;USE [DCSQLMON]&#xA;GO&#xA;/****** Object:  StoredProcedure [netbak].[SQL_NetBak_GetDataV2]    Script Date: 19/09/2018 9:56:25 AM ******/&#xA;SET ANSI_NULLS ON&#xA;GO&#xA;SET QUOTED_IDENTIFIER ON&#xA;GO&#xA;IF EXISTS (SELECT * FROM sys.objects WHERE name = 'sp_SQL_NetBak_GetDataV2' AND type ='P')&#xA;DROP Procedure [netbak].[sp_SQL_NetBak_GetDataV2]&#xA;GO&#xA;CREATE  Procedure [netbak].[sp_SQL_NetBak_GetDataV2]&#xA;AS&#xA;BEGIN&#xA;IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'SQL_DatabasesV2')&#xA;CREATE TABLE [netbak].[SQL_DatabasesV2](&#xA;&#x9;[name] [sysname] NOT NULL,&#xA;&#x9;[recovery_model] [tinyint] NULL,&#xA;&#x9;[state] [tinyint] NULL,&#xA;&#x9;[IsPreferedBackup] [bit] NULL&#xA;) ON [PRIMARY]&#xA;&#xA;END&#xA;&#xA;&#xA;&#x9;&#x9;&#xA;&#x9;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Container 1\Truncate SQL_DatabaseV2"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{bfadbc48-10d0-4efe-b4a2-78072549f368}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate SQL_DatabaseV2"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{35294AF6-0A52-4951-8627-64BAC1380B9B}"
+              SQLTask:SqlStatementSource="TRUNCATE TABLE [netbak].[SQL_DatabasesV2]&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Container 1.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{51321547-8AA2-4C89-B533-787CED57208C}"
+          DTS:From="Package\Container 1\SP - SQL_NetBak_GetDataV2"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Container 1\Exec - SQL_NetBak_GetDataV2" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Container 1.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{6D45EA2A-326F-4830-91F6-A6E2FA728254}"
+          DTS:From="Package\Container 1\Insert Into SQL_DatabasesV2"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\Container 1\SP - SQL_DBExcludes" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Container 1.PrecedenceConstraints[Constraint 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{2BF61F9A-D6CC-447A-BBD1-DEDA0316A260}"
+          DTS:From="Package\Container 1\Exec - SQL_NetBak_GetDataV2"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 2"
+          DTS:To="Package\Container 1\Truncate SQL_DatabaseV2" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Container 1.PrecedenceConstraints[Constraint 3]"
+          DTS:CreationName=""
+          DTS:DTSID="{3471B046-F694-45F8-8030-E97B7DBF0A77}"
+          DTS:From="Package\Container 1\Truncate SQL_DatabaseV2"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 3"
+          DTS:To="Package\Container 1\Insert Into SQL_DatabasesV2" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Container 2"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{F113CCDA-38D5-42AD-8EFE-9437FAC47AD8}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Container 2">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:DTSID="{6849F89E-FEB5-4D55-933B-A4674C661836}"
+          DTS:IncludeInDebugDump="2345"
+          DTS:Namespace="User"
+          DTS:ObjectName="ExcludeDB">
+          <DTS:VariableValue
+            DTS:DataType="8"
+            xml:space="preserve"></DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Container 2\Create SQL_BAK_TLOGV2"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{AEC2174B-A65C-40CF-AE08-D6C061C72271}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Create SQL_BAK_TLOGV2"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{35294AF6-0A52-4951-8627-64BAC1380B9B}"
+              SQLTask:SqlStatementSource="/*    ==Scripting Parameters==&#xA;&#xA;    Source Server Version : SQL Server 2016 (13.0.4474)&#xA;    Source Database Engine Edition : Microsoft SQL Server Standard Edition&#xA;    Source Database Engine Type : Standalone SQL Server&#xA;&#xA;    Target Server Version : SQL Server 2017&#xA;    Target Database Engine Edition : Microsoft SQL Server Standard Edition&#xA;    Target Database Engine Type : Standalone SQL Server&#xA;*/&#xA;&#xA;USE [DCSQLMON]&#xA;GO&#xA;/****** Object:  StoredProcedure [netbak].[SQL_BAK_AlwaysOn_and_STDV2]    Script Date: 17/09/2018 10:45:03 PM ******/&#xA;SET ANSI_NULLS ON&#xA;GO&#xA;SET QUOTED_IDENTIFIER ON&#xA;GO&#xA;IF EXISTS (SELECT * FROM sys.objects WHERE name = 'sp_SQL_BAK_TLOGV2' AND type ='P')&#xA;DROP Procedure [netbak].[sp_SQL_BAK_TLOGV2]&#xA;GO&#xA;CREATE  Procedure [netbak].[sp_SQL_BAK_TLOGV2]&#xA;@SQLHOSTqualifier nvarchar(50) NULL,&#xA;@NBServer nvarchar(50) NULL&#xA;AS&#xA;&#xA;--IF @SQLHOSTqualifier IS NULL THROW 50000, 'ERROR: Prameter @SQLHOSTqualifier is missing value ', 0&#xA;--IF @NBServer IS NULL THROW 50000, 'ERROR: Prameter @NBServer is missing value ', 0&#xA;&#xA;BEGIN &#xA;SET NOCOUNT ON;&#xA;&#xA;DECLARE @GROUPSIZE nvarchar (8)&#xA;DECLARE @GROUPSIZESpace nvarchar (8)&#xA;DECLARE @OPERATIOBACKUP nvarchar(50) &#xA;DECLARE @DATABASE nvarchar(128)&#xA;DECLARE @SQLHOST nvarchar(50)&#xA;DECLARE @SQLINSTANCE nvarchar(50)&#xA;DECLARE @MAXTRANSFERSIZE nvarchar(50)&#xA;DECLARE @BLOCKSIZE nvarchar(50)&#xA;DECLARE @OBJECTTYPE nvarchar(10)&#xA;DECLARE @NUMBUFS nvarchar(50)&#xA;DECLARE @SQLCOMPRESSION nvarchar(50)&#xA;DECLARE @ENDOPER nvarchar(50)&#xA;&#xA;-- Extra code to distinguish between named and default instances&#xA;&#xA;&#xA;DECLARE @isNamedInstance nvarchar(128)&#xA;DECLARE @getSQLHost nvarchar(128)&#xA;&#xA;Set @isNamedInstance = convert(nvarchar(128),(select serverproperty('instancename')))&#xA;IF @isNamedInstance IS NULL&#xA;BEGIN SET @getSQLHost = (select @@SERVERNAME); &#xA;END&#xA;ELSE &#xA;BEGIN SET @getSQLHost = (SELECT SUBSTRING(@@SERVERNAME,0,charindex('\',@@SERVERNAME))); &#xA;END&#xA;&#xA;SET @OPERATIOBACKUP = 'OPERATION BACKUP'&#xA;SET @SQLHOST = @GetSQLHOST&#xA;SET @SQLINSTANCE = @isNamedInstance&#xA;SET @MAXTRANSFERSIZE = 6&#xA;SET @BLOCKSIZE = 7&#xA;SET @OBJECTTYPE = 'TRXLOG'&#xA;SET @NUMBUFS = 2&#xA;SET @SQLCOMPRESSION = 'TRUE'&#xA;SET @ENDOPER = 'TRUE'&#xA;&#xA;&#xA;IF NOT EXISTS(SELECT * FROM SYS.TABLES WHERE name = 'SQL_NetBackup_TLOGV2')&#xA;CREATE TABLE [netbak].[SQL_NetBackup_TLOGV2](&#xA;&#x9;[Variables] [nvarchar](255) NULL&#xA;) ON [PRIMARY]&#xA;TRUNCATE TABLE DCSQLMON.[netbak].[SQL_NetBackup_TLOGV2]&#xA;&#xA;&#xA;&#xA;SET @GROUPSIZE = (SELECT COUNT(name) FROM DCSQLMON.[netbak].[SQL_DatabasesV2]&#xA;WHERE IsPreferedBackup = 1 AND State = 0 AND recovery_model = 1)&#xA;SET @GROUPSIZESpace = ''&#xA;&#xA;-- Declare variables for holding data&#xA;&#x9;DECLARE @BAKVariables nvarchar(255)&#xA;&#xA;&#xA;-- Declare and Set counter&#xA;&#x9;DECLARE @Counter INT&#xA;&#x9;SET @Counter = 1&#xA;-- Declair Cursor for Query&#xA;DECLARE TLog_BAK_cursor CURSOR READ_ONLY&#xA;FOR&#xA;&#x9;SELECT name FROM DCSQLMON.[netbak].[SQL_DatabasesV2]&#xA;&#x9;WHERE IsPreferedBackup = 1 AND State = 0 AND recovery_model = 1&#xA;&#xA;OPEN TLog_BAK_cursor &#xA;FETCH NEXT FROM TLog_BAK_cursor INTO @DATABASE&#xA;&#xA;INSERT INTO [netbak].[SQL_NetBackup_TLOGV2] ([Variables])&#xA;&#x9;&#x9;&#x9;   VALUES ('GROUPSIZE ' +@GROUPSIZE);&#xA;&#xA;WHILE @@FETCH_STATUS = 0&#xA;BEGIN&#xA;&#x9;BEGIN&#xA;&#x9;&#x9;INSERT INTO [netbak].[SQL_NetBackup_TLOGV2] ([Variables])&#xA;&#x9;&#x9;&#x9;   VALUES (@GROUPSIZESpace);&#xA;&#x9;&#x9;INSERT INTO [netbak].[SQL_NetBackup_TLOGV2] ([Variables])&#xA;&#x9;&#x9;&#x9;   VALUES (@OPERATIOBACKUP);&#xA;&#x9;&#x9;INSERT INTO [netbak].[SQL_NetBackup_TLOGV2] ([Variables])&#xA;&#x9;&#x9;&#x9;   VALUES ('DATABASE ' + '&quot;'+@DATABASE +'&quot;');&#xA;&#x9;&#x9;INSERT INTO [netbak].[SQL_NetBackup_TLOGV2] ([Variables])&#xA;&#x9;&#x9;&#x9;   VALUES ('SQLHOST ' + '&quot;'+ @SQLHOST + @SQLHOSTqualifier +'&quot;');&#xA;&#x9;&#x9;INSERT INTO [netbak].[SQL_NetBackup_TLOGV2] ([Variables])&#xA;&#x9;&#x9;&#x9;   VALUES ('SQLINSTANCE ' + '&quot;'+ @SQLINSTANCE +'&quot;');&#xA;&#x9;&#x9;INSERT INTO [netbak].[SQL_NetBackup_TLOGV2] ([Variables])&#xA;&#x9;&#x9;&#x9;   VALUES ('NBSERVER ' + '&quot;'+ @NBServer +'&quot;');&#xA;&#x9;&#x9;INSERT INTO [netbak].[SQL_NetBackup_TLOGV2] ([Variables])&#xA;&#x9;&#x9;&#x9;   VALUES ('MAXTRANSFERSIZE ' + @MAXTRANSFERSIZE);&#xA;&#x9;&#x9;INSERT INTO [netbak].[SQL_NetBackup_TLOGV2] ([Variables])&#xA;&#x9;&#x9;&#x9;   VALUES ('BLOCKSIZE ' + @BLOCKSIZE);&#xA;&#x9;&#x9;INSERT INTO [netbak].[SQL_NetBackup_TLOGV2] ([Variables])&#xA;&#x9;&#x9;&#x9;   VALUES ('OBJECTTYPE ' + @OBJECTTYPE);&#xA;&#x9;&#x9;INSERT INTO [netbak].[SQL_NetBackup_TLOGV2] ([Variables])&#xA;&#x9;&#x9;&#x9;   VALUES ('NUMBUFS ' + @NUMBUFS);&#xA;&#x9;&#x9;INSERT INTO [netbak].[SQL_NetBackup_TLOGV2] ([Variables])&#xA;&#x9;&#x9;&#x9;   VALUES ('SQLCOMPRESSION ' + @SQLCOMPRESSION);&#xA;&#x9;&#x9;INSERT INTO [netbak].[SQL_NetBackup_TLOGV2] ([Variables])&#xA;&#x9;&#x9;&#x9;   VALUES ('ENDOPER ' + @ENDOPER);&#xA;&#x9;END&#xA;&#x9;-- Increment counter&#xA;&#x9;--SET @Counter = @Counter +1&#xA;&#x9;-- Fetch the next recored into the variables&#xA;FETCH NEXT FROM TLog_BAK_cursor INTO @DATABASE&#xA;&#xA;END &#xA;&#xA;END&#xA;-- Close the Cursor&#xA;CLOSE TLog_BAK_cursor&#xA;DEALLOCATE TLog_BAK_cursor&#xA;&#xA;&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Container 2\Exec - SQL_BAK_TLOGV2"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{E8C32C36-857B-4E01-91FE-4B3ED57B2167}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Exec - SQL_BAK_TLOGV2"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{35294AF6-0A52-4951-8627-64BAC1380B9B}"
+              SQLTask:SqlStatementSource="EXEC netbak.sp_SQL_BAK_TLOGV2 @SQLHOSTqualifier=?, @NBServer=?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="$Project::SQLHOSTqualifier"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="50" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="$Project::NBServer"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="50" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Container 2\Exec - SQL_DBExcludes"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{b298e8a5-d7fa-41cd-bf96-e3695db931d1}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Exec - SQL_DBExcludes"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{35294AF6-0A52-4951-8627-64BAC1380B9B}"
+              SQLTask:SqlStatementSource="EXEC netbak.sp_SQL_DBExcludesV2 @ExcludeDB=?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@ExcludeDB"
+                SQLTask:DtsVariableName="$Project::ExcludeDB"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="4000" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Container 2.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{2A7A08CA-C909-474E-9BC6-C42E5D7346AE}"
+          DTS:From="Package\Container 2\Exec - SQL_DBExcludes"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Container 2\Create SQL_BAK_TLOGV2" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Container 2.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{05EB3DA5-498F-4839-89FF-BF549691C0EC}"
+          DTS:From="Package\Container 2\Create SQL_BAK_TLOGV2"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\Container 2\Exec - SQL_BAK_TLOGV2" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create file Name in SQL table"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{33E255FC-A67E-4788-AE32-9359D53DC07D}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create file Name in SQL table"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{35294AF6-0A52-4951-8627-64BAC1380B9B}"
+          SQLTask:SqlStatementSource="DECLARE @isNamedInstance nvarchar(128)&#xA;DECLARE @getSQLHost nvarchar(128)&#xA;DECLARE @ExecSQL nvarchar(500)&#xA;DECLARE @FullBch nvarchar(10) -- update insert for different job type&#xA;DECLARE @TLogBch nvarchar(10) -- update insert for different job type&#xA;DECLARE @DiffBch nvarchar(10) -- update insert for different job type&#xA;&#xA;SET @isNamedInstance = convert(nvarchar(128),(select serverproperty('instancename')))&#xA;SET @FullBch = '-FULL.bch'&#xA;SET @TLogBch = '-TLog.bch'&#xA;SET @DiffBch = '-Diff.bch'&#xA;&#xA;IF @isNamedInstance IS NULL&#xA;BEGIN SET @getSQLHost = (select @@SERVERNAME); &#xA;END&#xA;ELSE &#xA;BEGIN SET @getSQLHost = (SELECT SUBSTRING(@@SERVERNAME,0,charindex('\',@@SERVERNAME))); &#xA;END&#xA;&#xA;&#xA;IF NOT EXISTS (SELECT Name FROM sys.tables WHERE name = 'InstanceName') CREATE TABLE netbak.InstanceName (name nvarchar(128))&#xA;IF EXISTS (SELECT Name FROM sys.tables WHERE name = 'InstanceName') TRUNCATE TABLE netbak.InstanceName&#xA;INSERT INTO [netbak].[InstanceName] VALUES ('SQLNetbackup'+ @isNamedInstance + @TLogBch)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Data Flow Task 1"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DelayValidation="True"
+      DTS:DTSID="{E6C5B576-ABF3-45EA-9388-453196DF1328}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:FailPackageOnFailure="True"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Data Flow Task 1"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          defaultBufferSize="3145728"
+          version="1">
+          <components>
+            <component
+              refId="Package\Data Flow Task 1\Destination - SQLNetBackup-TLog_bch"
+              componentClassID="Microsoft.FlatFileDestination"
+              contactInfo="Flat File Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Flat File Destination"
+              localeId="3081"
+              name="Destination - SQLNetBackup-TLog_bch">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether the data will overwrite or append to the destination file."
+                  name="Overwrite">true</property>
+                <property
+                  dataType="System.Null"
+                  description="Specifies the text to write to the destination file before any data is written."
+                  expressionType="Notify"
+                  name="Header" />
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task 1\Destination - SQLNetBackup-TLog_bch.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DestinationConnectionFlatFile]"
+                  connectionManagerRefId="Package.ConnectionManagers[DestinationConnectionFlatFile]"
+                  name="FlatFileConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task 1\Destination - SQLNetBackup-TLog_bch.Inputs[Flat File Destination Input]"
+                  hasSideEffects="true"
+                  name="Flat File Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task 1\Destination - SQLNetBackup-TLog_bch.Inputs[Flat File Destination Input].Columns[Variables]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Variables"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Destination - SQLNetBackup-TLog_bch.Inputs[Flat File Destination Input].ExternalColumns[Variables]"
+                      lineageId="Package\Data Flow Task 1\Source - SQLNetBackup_TLogV2.Outputs[OLE DB Source Output].Columns[Variables]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Destination - SQLNetBackup-TLog_bch.Inputs[Flat File Destination Input].ExternalColumns[Variables]"
+                      dataType="wstr"
+                      length="255"
+                      name="Variables" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task 1\Source - SQLNetBackup_TLogV2"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Source - SQLNetBackup_TLogV2"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[netbak].[SQL_NetBackup_TLOGV2]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task 1\Source - SQLNetBackup_TLogV2.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SourceConnectionOLEDB]"
+                  connectionManagerRefId="Package.ConnectionManagers[SourceConnectionOLEDB]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task 1\Source - SQLNetBackup_TLogV2.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source - SQLNetBackup_TLogV2.Outputs[OLE DB Source Output].Columns[Variables]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task 1\Source - SQLNetBackup_TLogV2.Outputs[OLE DB Source Output].ExternalColumns[Variables]"
+                      length="255"
+                      lineageId="Package\Data Flow Task 1\Source - SQLNetBackup_TLogV2.Outputs[OLE DB Source Output].Columns[Variables]"
+                      name="Variables"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task 1\Source - SQLNetBackup_TLogV2.Outputs[OLE DB Source Output].ExternalColumns[Variables]"
+                      dataType="wstr"
+                      length="255"
+                      name="Variables" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Data Flow Task 1\Source - SQLNetBackup_TLogV2.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source - SQLNetBackup_TLogV2.Outputs[OLE DB Source Error Output].Columns[Variables]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Data Flow Task 1\Source - SQLNetBackup_TLogV2.Outputs[OLE DB Source Error Output].Columns[Variables]"
+                      name="Variables" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source - SQLNetBackup_TLogV2.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Source - SQLNetBackup_TLogV2.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task 1\Source - SQLNetBackup_TLogV2.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task 1\Source - SQLNetBackup_TLogV2.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Data Flow Task 1.Paths[OLE DB Source Output]"
+              endId="Package\Data Flow Task 1\Destination - SQLNetBackup-TLog_bch.Inputs[Flat File Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Data Flow Task 1\Source - SQLNetBackup_TLogV2.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\DCSQLMON and Schema Check or Create"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{ED645629-0B59-4904-A579-AFAC183B4FD0}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DCSQLMON and Schema Check or Create"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{35294AF6-0A52-4951-8627-64BAC1380B9B}"
+          SQLTask:SqlStatementSource="IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'DCSQLMON')&#xA;CREATE DATABASE DCSQLMON&#xA;GO&#xA;IF (NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'netbak'))&#xA;BEGIN&#xA;EXEC ('&#x9;CREATE SCHEMA [netbak] AUTHORIZATION [dbo] ')&#xA;END&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Execute ps1 Create Folder"
+      DTS:CreationName="Microsoft.ExecuteProcess"
+      DTS:Description="Execute Process Task"
+      DTS:DTSID="{FB08E4F6-A6ED-4DE5-9A94-C661BC89E418}"
+      DTS:ExecutableType="Microsoft.ExecuteProcess"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Execute ps1 Create Folder"
+      DTS:TaskContact="Execute Process Task;Microsoft Corporation; SQL Server 2017; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:PropertyExpression
+        DTS:Name="Executable">@[User::PowerShellCMD]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <ExecuteProcessData
+          Executable="C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
+          Arguments="New-Item -ItemType Directory -Force -Path c:\Temp\SQLNetBackup" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Execute ps1 Create New File"
+      DTS:CreationName="Microsoft.ExecuteProcess"
+      DTS:Description="Execute Process Task"
+      DTS:DTSID="{740829FB-F708-4AA8-ACF4-7AE37B0A284E}"
+      DTS:ExecutableType="Microsoft.ExecuteProcess"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Execute ps1 Create New File"
+      DTS:TaskContact="Execute Process Task;Microsoft Corporation; SQL Server 2017; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:PropertyExpression
+        DTS:Name="Arguments">@[User::CreateLocalFile] + @[User::LocalFileName] + " -Force"</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="Executable">@[User::PowerShellCMD]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <ExecuteProcessData
+          Executable="C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
+          Arguments="New-Item c:\Temp\SQLNetBackup\ -Force" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Execute ps1 Remove Old File"
+      DTS:CreationName="Microsoft.ExecuteProcess"
+      DTS:Description="Execute Process Task"
+      DTS:DTSID="{ED9D200B-CBBA-4E54-860B-81BCF43E5251}"
+      DTS:ExecutableType="Microsoft.ExecuteProcess"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Execute ps1 Remove Old File"
+      DTS:TaskContact="Execute Process Task;Microsoft Corporation; SQL Server 2017; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:PropertyExpression
+        DTS:Name="Arguments">@[User::RemoveLocalFile] + @[User::LocalFileName] + " -Force"</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="Executable">@[User::PowerShellCMD]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <ExecuteProcessData
+          Executable="C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
+          Arguments="Remove-Item c:\Temp\SQLNetBackup\ -Force"
+          FailTaskIfReturnCodeIsNotSuccessValue="False"
+          StandardInputVariable="User::LocalFileName" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Get File Name From Table"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{62C8E713-B7E8-4B35-B82F-714B5F1D21DD}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Get File Name From Table"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{35294AF6-0A52-4951-8627-64BAC1380B9B}"
+          SQLTask:SqlStatementSource="SELECT name FROM [netbak].[InstanceName] WHERE name Like '%TLog%'"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="name"
+            SQLTask:DtsVariableName="User::LocalFileGetName" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{3683953C-FB3E-4745-81A1-4312F424AD2D}"
+      DTS:From="Package\Execute ps1 Create Folder"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Create file Name in SQL table" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{DEB5EF8A-2974-43A4-895E-015D96CD176E}"
+      DTS:From="Package\Create file Name in SQL table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Get File Name From Table" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{55CFF295-9DCD-4A3E-AE48-7497D578553D}"
+      DTS:From="Package\Execute ps1 Remove Old File"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Execute ps1 Create New File" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{C3618925-108C-4411-AEC4-4A4F2651D3BC}"
+      DTS:From="Package\Get File Name From Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\Execute ps1 Remove Old File" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{5C563722-29A4-426F-A365-9EB063AF2670}"
+      DTS:From="Package\Execute ps1 Create New File"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 4"
+      DTS:To="Package\Container 1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 5]"
+      DTS:CreationName=""
+      DTS:DTSID="{93AD1E95-D0C3-42BA-AE0B-8B98C52BBEDA}"
+      DTS:From="Package\Container 1"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 5"
+      DTS:To="Package\Container 2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 6]"
+      DTS:CreationName=""
+      DTS:DTSID="{716B958C-7828-41D4-94CF-B291CC129F95}"
+      DTS:From="Package\Container 2"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 6"
+      DTS:To="Package\Data Flow Task 1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 7]"
+      DTS:CreationName=""
+      DTS:DTSID="{12C07FA5-6E5D-47B8-8594-3F8978584340}"
+      DTS:From="Package\Data Flow Task 1"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 7"
+      DTS:To="Package\Backup DBs" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 8]"
+      DTS:CreationName=""
+      DTS:DTSID="{A627F24A-6AE2-4AEC-AC0B-72BCAA379973}"
+      DTS:From="Package\DCSQLMON and Schema Check or Create"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 8"
+      DTS:To="Package\Execute ps1 Create Folder" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="64" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="135,42"
+          Id="Package\Backup DBs"
+          TopLeft="757,669" />
+        <NodeLayout
+          Size="226,42"
+          Id="Package\Container 1\Exec - SQL_NetBak_GetDataV2"
+          TopLeft="28,97" />
+        <NodeLayout
+          Size="218,42"
+          Id="Package\Container 1\Insert Into SQL_DatabasesV2"
+          TopLeft="26,227" />
+        <NodeLayout
+          Size="180,42"
+          Id="Package\Container 1\SP - SQL_DBExcludes"
+          TopLeft="48,322" />
+        <NodeLayout
+          Size="216,42"
+          Id="Package\Container 1\SP - SQL_NetBak_GetDataV2"
+          TopLeft="28,21" />
+        <NodeLayout
+          Size="205,42"
+          Id="Package\Container 1\Truncate SQL_DatabaseV2"
+          TopLeft="40,165" />
+        <EdgeLayout
+          Id="Package\Container 1.PrecedenceConstraints[Constraint]"
+          TopLeft="138.5,63">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,34"
+              Start="0,0"
+              End="0,26.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Container 1.PrecedenceConstraints[Constraint 1]"
+          TopLeft="136.5,269">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,53"
+              Start="0,0"
+              End="0,45.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,45.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Container 1.PrecedenceConstraints[Constraint 2]"
+          TopLeft="141.75,139">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,26"
+              Start="0,0"
+              End="0,18.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Container 1.PrecedenceConstraints[Constraint 3]"
+          TopLeft="245,186">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-1,62"
+              Start="0,0"
+              End="6.5,62">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="18.5,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="18.5,0"
+                    Point2="22.5,0"
+                    Point3="22.5,4" />
+                  <mssgle:LineSegment
+                    End="22.5,58" />
+                  <mssgle:CubicBezierSegment
+                    Point1="22.5,58"
+                    Point2="22.5,62"
+                    Point3="18.5,62" />
+                  <mssgle:LineSegment
+                    End="6.5,62" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="279,433"
+          Size="279,476"
+          Id="Package\Container 1"
+          TopLeft="153,499" />
+        <NodeLayout
+          Size="201,42"
+          Id="Package\Container 2\Create SQL_BAK_TLOGV2"
+          TopLeft="16,88" />
+        <NodeLayout
+          Size="199,42"
+          Id="Package\Container 2\Exec - SQL_BAK_TLOGV2"
+          TopLeft="12,158.5" />
+        <NodeLayout
+          Size="190,42"
+          Id="Package\Container 2\Exec - SQL_DBExcludes"
+          TopLeft="27,15.5" />
+        <EdgeLayout
+          Id="Package\Container 2.PrecedenceConstraints[Constraint]"
+          TopLeft="119.25,57.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,30.5"
+              Start="0,0"
+              End="0,23">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Container 2.PrecedenceConstraints[Constraint 1]"
+          TopLeft="114,130">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,28.5"
+              Start="0,0"
+              End="0,21">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="228,256"
+          Size="228,299"
+          Id="Package\Container 2"
+          TopLeft="470,501" />
+        <NodeLayout
+          Size="218,42"
+          Id="Package\Create file Name in SQL table"
+          TopLeft="570,188" />
+        <NodeLayout
+          Size="160,42"
+          Id="Package\Data Flow Task 1"
+          TopLeft="766.5,524" />
+        <NodeLayout
+          Size="186,61"
+          Id="Package\DCSQLMON and Schema Check or Create"
+          TopLeft="591,14" />
+        <NodeLayout
+          Size="202,42"
+          Id="Package\Execute ps1 Create Folder"
+          TopLeft="582,100" />
+        <NodeLayout
+          Size="213,42"
+          Id="Package\Execute ps1 Create New File"
+          TopLeft="570,420" />
+        <NodeLayout
+          Size="216,42"
+          Id="Package\Execute ps1 Remove Old File"
+          TopLeft="571,350" />
+        <NodeLayout
+          Size="202,42"
+          Id="Package\Get File Name From Table"
+          TopLeft="579,268" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="681,142">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,46"
+              Start="0,0"
+              End="0,38.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="679.5,230">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,38"
+              Start="0,0"
+              End="0,30.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="677.75,392">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,28"
+              Start="0,0"
+              End="0,20.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="679.5,310">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40"
+              Start="0,0"
+              End="0,32.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 4]"
+          TopLeft="676.5,462">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-384,37"
+              Start="0,0"
+              End="-384,29.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14.5"
+                    Point2="0,18.5"
+                    Point3="-4,18.5" />
+                  <mssgle:LineSegment
+                    End="-380,18.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-380,18.5"
+                    Point2="-384,18.5"
+                    Point3="-384,22.5" />
+                  <mssgle:LineSegment
+                    End="-384,29.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 5]"
+          TopLeft="432,737">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="38,-86.5"
+              Start="0,0"
+              End="30.5,-86.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="15,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="15,0"
+                    Point2="19,0"
+                    Point3="19,-4" />
+                  <mssgle:LineSegment
+                    End="19,-82.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="19,-82.5"
+                    Point2="19,-86.5"
+                    Point3="23,-86.5" />
+                  <mssgle:LineSegment
+                    End="30.5,-86.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 6]"
+          TopLeft="698,650.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="68.5,-105.5"
+              Start="0,0"
+              End="61,-105.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="30.25,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="30.25,0"
+                    Point2="34.25,0"
+                    Point3="34.25,-4" />
+                  <mssgle:LineSegment
+                    End="34.25,-101.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="34.25,-101.5"
+                    Point2="34.25,-105.5"
+                    Point3="38.25,-105.5" />
+                  <mssgle:LineSegment
+                    End="61,-105.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 7]"
+          TopLeft="846.5,566">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-22,103"
+              Start="0,0"
+              End="-22,95.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,47.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,47.5"
+                    Point2="0,51.5"
+                    Point3="-4,51.5" />
+                  <mssgle:LineSegment
+                    End="-18,51.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-18,51.5"
+                    Point2="-22,51.5"
+                    Point3="-22,55.5" />
+                  <mssgle:LineSegment
+                    End="-22,95.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 8]"
+          TopLeft="683.5,75">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,25"
+              Start="0,0"
+              End="0,17.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Data Flow Task 1">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="232,42"
+          Id="Package\Data Flow Task 1\Source - SQLNetBackup_TLogV2"
+          TopLeft="17.5,4.5" />
+        <NodeLayout
+          Size="261,42"
+          Id="Package\Data Flow Task 1\Destination - SQLNetBackup-TLog_bch"
+          TopLeft="5.50000000000003,107.5" />
+        <EdgeLayout
+          Id="Package\Data Flow Task 1.Paths[OLE DB Source Output]"
+          TopLeft="134.75,46.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,61"
+              Start="0,0"
+              End="0,53.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,53.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Data Flow Task 1\Source - SQLNetBackup_TLogV2">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
