@@ -1,0 +1,52 @@
+1. I recommend firstly that you have a Proxy account created, this will need acecss to the Host, SQL and possibly the Netbackup appliance. Domain\svc_SQLNetbackup
+The account will need logon as a service along with sysadmin to start, each domain may be different.
+2. Create the backup policies you need on the Netbackup appliance console. 
+
+Generally this may look like the below. (These are referenced in the package and can be selected from the SSIS envrionment variables you will also need to set up)
+
+Domain_SQL_Database
+Domain_SQL_TransactionLogs
+
+3. Install the Netbackup Agent to the host and configure the following SQL server connection properties in the Netbackup agent
+Host
+Instance
+UserId and Password
+4. Ensure that the service account created in step one is the account that runs the following local services.
+Netbackup Client Service
+Netbackup legacy Network Service
+
+5. Using the account you created in step one create a credential and Proxy on the SQL instance. Proxy rights below
+Operating system (CmdExec)
+SQL Server Intergration Services Package
+Powershell
+
+6. You will need SSDT and SSIS installed on the instance you wish to deploy this to. 
+7. Within the package configure the settings as required. 
+8. Once you have created the SSISDB, create the folder you will deploy to [SQLNetbackupV2] 
+9. Deploy the packages
+10. Configure the environmental variables, its good to name them after the backup policies. 
+11. Create within each environmental variables the following.(This must be in the correct order as per below.
+
+Domain_SQL_Database Envirionment 
+VariableName = NBPolicy, Type = String, Value = -p Domain_SQL_Database -np
+VariableName = NBServer, Type = String, Value = -p Host.FQDN
+VariableName = SQLHOSTQualifier, Type = String, Value = .Domain.local
+
+Domain_SQL_TransactionLogs Envirionment 
+VariableName = NBPolicy, Type = String, Value = -p Domain_SQL_TransactionLogs -np
+VariableName = NBServer, Type = String, Value = -p Host.FQDN
+VariableName = SQLHOSTQualifier, Type = String, Value = .Domain.local
+
+12. Create SQL jobs for the different packages you whish to use. Ensure that the owner is the service account you created. 
+Full backup
+Diff backup (Master DB cannot be selected in this job and must be excluded) 
+TLog backup
+Onetime Full Backup
+
+When configureing the Job use the environmental variables. 
+
+13. Ensure that the [SQLGuard_Ops] exists on the instance. 
+
+Test and modify as you need, each domain is different and you will need to work with you storage / backup team to ensure that it works for what you need. 
+Its quite useful and I hope it makes your life as a DBA easier. DB restors would continue to be actioned via the Netbackup agent, you will see the backups your sending list in one of the views. 
+
